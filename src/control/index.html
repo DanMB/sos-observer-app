@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div id="app">
+
+      <label class="scale">
+        <span>Opacity:</span>
+        <input id="scaleOpacity" v-on:change="changeOpacity" type="range" min="5" max="100" value="85" step="5">
+      </label>
+
+      <label>
+        <span>Preview:</span>
+        <input id="checkPreview" v-on:change="togglePreview" type="checkbox">
+      </label>
+
+      <label>
+        <span>Frame:</span>
+        <input id="checkFrame" v-on:change="toggleFrame" type="checkbox">
+      </label>
+
+      <div class="status" v-bind:class="[isConnected ? 'connected' : 'disconnected']">SOS {{ isConnected ? 'connected!' : 'not connected...' }}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </body>
+</html>

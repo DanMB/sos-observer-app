@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app" v-bind:class="[showFrame ? 'frame' : 'framelss']">
+      <div class="framebar" v-if="showFrame">Minimap</div>
+      <div class="map" id="map" v-bind:class="[isInGame ? 'show' : 'hide']" v-bind:style="{ opacity: `${opacity / 100}` }">
+          <img class="graphic" inline src="assets/map.svg" />
+          <span class="cars">
+
+            <span class="item" v-for="player in players"
+              v-bind:data-id="player.id"
+              v-bind:data-team="player.team"
+              v-bind:style="{ 'transform': `translate(${player.y / 1000}em, ${player.x / -1000}em)` }">
+
+              <i id="rot" v-if="player.id === target" v-bind:style="{ '--rot': `${player.yaw / (65536 / 360)}deg` }"></i>
+
+              <span class="tag" v-bind:data-shortcut="player.shortcut ? player.shortcut : player.id.split('_').slice(-1)">
+                <span id="name">{{player.name}}</span>
+                <span id="boost"><i v-bind:style="{ width: `${player.boost}%` }"></i></span>
+              </span>
+
+              <span class="object">
+                <i id="rot" v-if="player.id !== target" v-bind:style="{ '--rot': `${player.yaw / (65536 / 360)}deg` }"></i>
+                <i id="circ"v-bind:data-shortcut="player.shortcut ? player.shortcut : player.id.split('_').slice(-1)"></i>
+                <!-- <i id="line" style={{'--height': (item.z / 750) + 'em'}}></i> -->
+              </span>
+            </span>
+
+              <span class="item ball" v-bind:style="{ 'transform': `translate(${ball.y / 1000}em, ${ball.x / -1000}em)` }">
+                  <span class="object">
+                      <i id="circ"></i>
+                      <!-- <i id="line" style={{'--height': (game.ballZ / 750) + 'em'}}></i> -->
+                  </span>
+              </span>
+          </span>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </body>
+</html>

@@ -1,0 +1,328 @@
+$blue: #00a3ff;
+$orange: #ff7e01;
+$blue1: adjust-hue($blue, -17);
+$orange1: adjust-hue($orange, 17);
+// $blue: #0080ff;
+// $orange: #ff8000;
+// $blue1: adjust-hue($blue, -17);
+// $orange1: adjust-hue($orange, 12);
+
+$frameCol: rgba(38, 40, 43, 0.95);
+$frame: 4px;
+$bar: 1.5rem;
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+	font-family: 'Rajdhani', sans-serif;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 0;
+  // font-size: 4.629vw;
+  // font-size: 2.604vh;
+  font-size: 18px;
+  font-weight: 500;
+}
+* {
+	-webkit-text-size-adjust: none;
+}
+#app {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: white;
+  box-sizing: border-box;
+  padding-top: $bar;
+
+  &.frame {
+    border: $frame solid $frameCol;
+    background-color: rgba(0,0,0,.2);
+  }
+
+  .framebar {
+    background-color: $frameCol;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-transform: none;
+    padding: 0 .5rem;
+    line-height: $bar;
+    color: rgb(220, 223, 230);
+    -webkit-app-region: drag;
+  }
+  
+  .map {
+    // font-size: 175.902vw;
+    // font-size: 98.952vh;
+    font-size: 38px; /* 0.001 em = 1 unreal unit */
+    display: inline-block;
+    position: relative;
+    // margin: 4.63vh;
+    // width: 10.28em;
+    // height: 8.24em;
+    // padding: 0 .875em;
+    // padding-bottom: 80.156%;
+    -webkit-app-region: drag;
+
+    // $height: 8.192;
+    $height: 7.792;
+    // $width: 10.28;
+    $width: 12;
+    // $width: 10.7175;
+    $marg: 2rem;
+    width: calc(100vw - #{$marg}); 
+    height: #{($height / $width) * 100}vw; /* height:width ratio = 9/16 = .5625  */
+    max-height: calc(100vh - #{$marg + $bar});
+    max-width: #{($width / $height) * 100}vh; /* 16/9 = 1.778 */
+
+    &.hide {
+      visibility: hidden;
+    }
+
+    .graphic {
+      height: 100%;
+      width: 100%;
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      stop {
+        &#dark-orange {
+          stop-color: $orange;
+        }
+        &#bright-orange {
+          stop-color: $orange1;
+        }
+        &#dark-blue {
+          stop-color: $blue;
+        }
+        &#bright-blue {
+          stop-color: $blue1;
+        }
+      }
+
+      .field-fill {
+        fill: rgba(0,0,0,.5);
+      }
+
+      .field-gradient {
+        fill: url(#orange-blue-gradient);
+      }
+
+      .orange {
+        fill: url(#orange-gradient);
+      }
+
+      .blue {
+        fill: url(#blue-gradient);
+      }
+
+      .detail {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 0.5px;
+      }
+
+      .detail-fill {
+        fill: #fff;
+      }
+
+      .hide {
+        display: none;
+      }
+    }
+
+    .cars {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+
+      .item {
+        --size: .35em;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        position: absolute;
+        width: var(--size);
+        height: var(--size);
+        font-weight: 600;
+        text-shadow: .04em .04em .1em rgba(0,0,0,.8);
+        transition: transform .1s linear;
+        transform-style: preserve-3d;
+        --col: #fff;
+        --col1: #fff;
+
+        &[data-team="0"] {
+          --col: #{$blue};
+          --col1: #{$blue1};
+          
+          .tag {
+            background: radial-gradient(ellipse  at 25% 0%, rgba($blue1, .9) 5%, rgba($blue, .9) 100%);
+          }
+        }
+        &[data-team="1"] {
+          --col: #{$orange};
+          --col1: #{$orange1};
+
+          .tag {
+            background: radial-gradient(ellipse  at 25% 0%, rgba($orange1, .9) 5%, rgba($orange, .9) 100%);
+          }
+        }
+
+        &.isTarget #circ {
+          box-shadow: 0 0 .15em 0 rgba(255,255,255,.75),
+            inset 0 0 0 .04em rgba(255,255,255,.75),
+            inset 0 0 .075em .05em rgba(255,255,255,.75);
+        }
+
+        .object {
+          min-height: var(--size);
+          width: var(--size);
+          /* top: calc(var(--size) * -1); */
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          justify-items: center;
+          align-items: center;
+
+          #rot {
+            --rot: 0deg;
+            --rotSize: calc(var(--size) * .35);
+            --rotw: calc(var(--rotSize) * 2);
+            --roth: calc(var(--rotSize) * 1.2);
+            --top: calc(min(var(--roth), var(--size)) * -1.2);
+            --origin: calc(var(--size) / 2 + var(--top) * -1);
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 var(--rotSize) var(--roth) var(--rotSize);
+            border-color: transparent transparent var(--col) transparent;
+            -webkit-mask: radial-gradient(circle at 50% var(--origin), transparent 45%, black 47%);
+            top: var(--top);
+            left: calc(var(--size) / 2 - (var(--rotw) / 2));
+            transform: rotate(var(--rot));
+            transform-origin: center var(--origin);
+            // transition: .1s transform;
+          }
+        }
+
+        & > #rot {
+          --rot: 0deg;
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 1.75em 1em 0 1em;
+          border-color: #fff transparent transparent transparent;
+          -webkit-mask: radial-gradient(circle at 50% 100%, rgba(0,0,0,.7), rgba(0,0,0,.07) 80%, transparent 80%, transparent 100%);
+          /* border-width: 0 .5em 1em .5em;
+          border-color: transparent transparent #fff transparent; */
+          /* -webkit-mask: radial-gradient(circle at 50% 100%, black, rgba(0,0,0,.1) 80%, transparent 80%, transparent 100%); */
+          transform: rotate(var(--rot));
+          transform-origin: center calc(100% - .1em);
+          // transition: .1s transform;
+        }
+
+        .tag {
+          font-size: .32em;
+          position: absolute;
+          display: grid;
+          grid-template-columns: max-content 1fr;
+          grid-template-rows: repeat(2, max-content);
+          align-items: center;
+          top: 0;
+          margin-top: -.5em;
+          transform: translateY(-100%);
+          border-radius: .5em;
+          padding: 0 .5em;
+          color: #fff;
+          background-color: var(--col);
+          opacity: .9;
+
+          // &::before {
+          //   grid-row: 1 / -1;
+          //   grid-column: 1;
+          //   content: attr(data-shortcut);
+          //   display: inline-block;
+          //   position: relative;
+          //   padding-right: .35em;
+          //   font-weight: 600;
+          //   font-size: 1.15em;
+          // }
+
+          #name {
+            grid-row: 1;
+            grid-column: 2;
+            justify-self: center;
+            line-height: 1.4em;
+          }
+
+          #boost {
+            min-width: 5em;
+            grid-row: 2;
+            grid-column: 2;
+            width: 100%;
+            height: .22em;
+            border-radius: .11em;
+            background-color: rgba(255,255,255,.3);
+            margin: .3em 0;
+            margin-top: -.15em;
+            display: flex;
+            overflow: hidden;
+
+            i {
+              background-color: #fff;
+              height: 100%;
+              width: 33%;
+            }
+          }
+        }
+
+        #circ {
+          height: var(--size);
+          width: var(--size);
+          border-radius: 50%;
+          position: relative;
+          // background-color: var(--col);
+          background: radial-gradient(circle at 25% 25%, var(--col1) 5%,var(--col) 75%);
+          display: flex;
+          align-items: center;
+
+          &::before {
+            flex-grow: 1;
+            content: attr(data-shortcut);
+            display: inline-block;
+            position: relative;
+            text-align: center;
+            font-style: normal;
+            font-size: .33em;
+          }
+        }
+
+
+        &.ball {
+          --size: .5em;
+        }
+        &.ball #circ {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+  }
+}
