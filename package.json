@@ -4,8 +4,10 @@
   "main": "main.js",
   "scripts": {
     "build": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
     "open": "electron build/main.js",
     "start": "npm run build && npm run open",
+    "start:dev": "npm run build:dev && npm run open",
     "compile": "electron-builder build --win portable",
     "release": "npm run build && npm run compile"
   },
