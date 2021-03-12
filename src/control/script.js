@@ -72,7 +72,7 @@ const store = {
   }
 }
 
-var isConnected = false;
+var data = { isConnected: false }
 
 
 const connectWS = () => {
@@ -80,14 +80,14 @@ const connectWS = () => {
 
   socket.onopen = (event) => {
     console.log('Socket connected');
-    isConnected = true;
+    data.isConnected = true;
   }
   
   socket.onclose = (event) => {
     console.log('Socket closed');
 
     if(store.state.isConnected) {
-      isConnected = false
+      data.isConnected = false;
       ipcRenderer.send('sos:close');
     }
 
@@ -121,9 +121,7 @@ const connectWS = () => {
 
 new Vue({
   el: '#app',
-  data: {
-    isConnected: isConnected
-  },
+  data: data,
   methods: {
 
     changeOpacity(e) {
