@@ -46,8 +46,8 @@ new Vue({
         players: players,
         target: state.game.target,
         ball: {
-          x: state.game.ballX,
-          y: state.game.ballY
+          X: state.game.ball.location?.X,
+          Y: state.game.ball.location?.Y
         },
       })
     });

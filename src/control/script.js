@@ -11,9 +11,11 @@ const previewState = {
       isDead: false,
       name: "ViolentPanda",
       team: 1,
-      x: -1500,
-      y: 0,
-      z: 0,
+      location: {
+        X: -1500,
+        Y: 0,
+        Z: 0,
+      },
       yaw: 180
     },
     Kaydop_2: {
@@ -22,9 +24,11 @@ const previewState = {
       isDead: false,
       name: "Kaydop",
       team: 1,
-      x: 3500,
-      y: 1500,
-      z: 500,
+      location: {
+        X: 3500,
+        Y: 1500,
+        Z: 500,
+      },
       yaw: 50
     },
     Squishymuffinz_5: {
@@ -33,9 +37,11 @@ const previewState = {
       isDead: false,
       name: "Squishymuffinz",
       team: 0,
-      x: 500,
-      y: -2500,
-      z: 0,
+      location: {
+        X: 500,
+        Y: -2500,
+        Z: 0,
+      },
       yaw: 230
     },
     Torment_6: {
@@ -44,17 +50,22 @@ const previewState = {
       isDead: false,
       name: "Torment",
       team: 0,
-      x: -825,
-      y: 2600,
-      z: 0,
+      location: {
+        X: -825,
+        Y: 2600,
+        Z: 0,
+      },
       yaw: 90
     },
   },
   game: {
-    ballTeam: 1,
-    ballX: 1700,
-    ballY: 1000,
-    ballZ: 800,
+    ball: {
+      location: {
+        X: 1700,
+        Y: 1000,
+        Z: 800,
+      },
+    },
     target: "Kaydop_2",
   },
   hasGame: true

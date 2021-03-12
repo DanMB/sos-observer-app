@@ -14,7 +14,7 @@
             <span class="item" v-for="player in players"
               v-bind:data-id="player.id"
               v-bind:data-team="player.team"
-              v-bind:style="{ 'transform': `translate(${player.y / 1000}em, ${player.x / -1000}em)` }">
+              v-bind:style="{ 'transform': `translate(${player.location?.Y / 1000}em, ${player.location?.X / -1000}em)` }">
 
               <i id="rot" v-if="player.id === target" v-bind:style="{ '--rot': `${player.yaw / (65536 / 360)}deg` }"></i>
 
@@ -30,7 +30,7 @@
               </span>
             </span>
 
-              <span class="item ball" v-bind:style="{ 'transform': `translate(${ball.y / 1000}em, ${ball.x / -1000}em)` }">
+              <span class="item ball" v-bind:style="{ 'transform': `translate(${ball.Y / 1000}em, ${ball.X / -1000}em)` }">
                   <span class="object">
                       <i id="circ"></i>
                       <!-- <i id="line" style={{'--height': (game.ballZ / 750) + 'em'}}></i> -->
