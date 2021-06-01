@@ -28,8 +28,8 @@ const previewState = {
         X: 3500,
         Y: 1500,
         Z: 500,
+        yaw: 50
       },
-      yaw: 50
     },
     Squishymuffinz_5: {
       boost: 33,
@@ -41,8 +41,8 @@ const previewState = {
         X: 500,
         Y: -2500,
         Z: 0,
+        yaw: 230
       },
-      yaw: 230
     },
     Torment_6: {
       boost: 81,
@@ -54,8 +54,8 @@ const previewState = {
         X: -825,
         Y: 2600,
         Z: 0,
+        yaw: 90
       },
-      yaw: 90
     },
   },
   game: {

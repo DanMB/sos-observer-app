@@ -16,7 +16,7 @@
               v-bind:data-team="player.team"
               v-bind:style="{ 'transform': `translate(${player.location?.Y / 1000}em, ${player.location?.X / -1000}em)` }">
 
-              <i id="rot" v-if="player.id === target" v-bind:style="{ '--rot': `${player.yaw / (65536 / 360)}deg` }"></i>
+              <i id="rot" v-if="player.id === target" v-bind:style="{ '--rot': `${player.location?.yaw / (65536 / 360)}deg` }"></i>
 
               <span class="tag" v-bind:data-shortcut="player.shortcut ? player.shortcut : player.id.split('_').slice(-1)">
                 <span id="name">{{player.name}}</span>
@@ -24,7 +24,7 @@
               </span>
 
               <span class="object">
-                <i id="rot" v-if="player.id !== target" v-bind:style="{ '--rot': `${player.yaw / (65536 / 360)}deg` }"></i>
+                <i id="rot" v-if="player.id !== target" v-bind:style="{ '--rot': `${player.location?.yaw / (65536 / 360)}deg` }"></i>
                 <i id="circ"v-bind:data-shortcut="player.shortcut ? player.shortcut : player.id.split('_').slice(-1)"></i>
                 <!-- <i id="line" style={{'--height': (item.z / 750) + 'em'}}></i> -->
               </span>
